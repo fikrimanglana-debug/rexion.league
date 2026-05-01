@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registrasi Forum</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 350px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+h2 {
+    text-align: center;
+    color: #2a5298;
+}
+
+label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #2a5298;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1e3c72;
+}
+
+img {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <h2>REGISTRASI REXION LEAGUE 18</h2>
+
+    <form onsubmit="kirimWA(event)">
+        <label>Nama:</label>
+        <input type="text" id="nama" required>
+
+        <label>Umur:</label>
+        <input type="number" id="umur" required>
+
+        <label>TTL:</label>
+        <input type="text" id="ttl" required>
+
+        <label>Tau dari mana liga rexion:</label>
+        <select id="sumber">
+            <option>Teman</option>
+            <option>Sosial Media</option>
+            <option>Lainnya</option>
+        </select>
+
+        <label>Alasan Bergabung ke rexion league:</label>
+        <textarea id="alasan" rows="3" required></textarea>
+
+        <label>Upload Foto ktp/kip buat verifikasi umur:</label>
+        <input type="file" id="foto" accept="image/*" onchange="previewFoto()">
+
+        <img id="preview" style="display:none;">
+
+        <button type="submit">REGISTRASI</button>
+    </form>
+</div>
+
+<script>
+function previewFoto() {
+    const file = document.getElementById("foto").files[0];
+    const preview = document.getElementById("preview");
+
+    if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+    }
+}
+
+function kirimWA(event) {
+    event.preventDefault();
+
+    let nama = document.getElementById("nama").value;
+    let umur = document.getElementById("umur").value;
+    let ttl = document.getElementById("ttl").value;
+    let sumber = document.getElementById("sumber").value;
+    let alasan = document.getElementById("alasan").value;
+
+    let nomorAdmin = "6281252409982"; // GANTI
+
+    let pesan = 
+`Halo Admin, saya ingin registrasi:
+
+Nama: ${nama}
+Umur: ${umur}
+TTL: ${ttl}
+Tau dari mana: ${sumber}
+Alasan: ${alasan}
+
+(Saya akan kirim foto setelah ini)`;
+
+    let url = "https://api.whatsapp.com/send?phone="6281252409982"&text=" + encodeURIComponent(pesan);
+
+    window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
